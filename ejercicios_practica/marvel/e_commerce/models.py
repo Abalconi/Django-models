@@ -27,6 +27,38 @@ class Comic(models.Model):
     )
     picture = models.URLField(verbose_name='picture', default='')
 
+class WishList(models.Model):
+    '''
+    Esta clase hereda de Django models.Model y crea una tabla llamada
+    e_commerce_comic. Las columnas toman el nombre especificado de cada objeto.
+    '''
+    id = models.BigAutoField(db_column='ID', primary_key=True)
+    marvel_id = models.PositiveIntegerField(
+        verbose_name='marvel id', null=False, blank=False, unique=True, default=1
+    )
+    # Otros campos...
+
+
+    user = models.ForeignKey(User, verbose_name='User', on_delete=models.CASCADE
+    )
+    
+    comic = models.ForeignKey('Comic',
+        verbose_name='comic', on_delete=models.CASCADE, default=1, blank=True,
+    )
+    stock_qty = models.PositiveIntegerField(
+        verbose_name='stock qty', default=0
+    )
+    favorite = models.BooleanField(verbose_name='favorite', default=False
+    )
+    cart = models.BooleanField(verbose_name='cart', default=False
+    )
+    wished_qty = models.PositiveIntegerField(
+        verbose_name='wished_qty', default=0
+    )
+    bought_qty = models.PositiveIntegerField(
+        verbose_name='bought qty', default=0
+    )
+
     class Meta:
         '''
         Con "class Meta" podemos definir atributos de nuestras entidades como el nombre de la tabla.
